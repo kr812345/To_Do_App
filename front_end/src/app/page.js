@@ -1,12 +1,12 @@
-import Navbarr from "@/components/navbar";
+import React from 'react';
+import Login from '@/components/Login';
 
-
-export default function Home() {
-  return (
-    <>
-    <div className="w-full h-screen bg-gradient-to-br from-[rgba(128,232,246,0.8)] to-[rgba(254,119,151,0.8)]">
-      <Navbarr/>
-    </div>
-    </>
-  );
+const home = () => {
+    return (
+        <div className="w-full h-screen flex bg-gray-100 p-4" >
+            <Login/>
+        </div>
+    );
 }
+
+export default home;

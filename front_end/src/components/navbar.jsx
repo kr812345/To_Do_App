@@ -2,7 +2,7 @@ import React from 'react';
 import { CiCalendarDate } from "react-icons/ci";
 import profile_icon from '@/Assets/profile_icon.svg';
 import Menu from '@/Assets/menu_icon.svg';
-import Calender from '@/Assets/calender_icon.svg';
+// import Calender from '@/Assets/calender_icon.svg';
 
 
 const navbar = () => {

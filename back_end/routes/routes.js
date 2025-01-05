@@ -1,48 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const todo_ = require("../models/models");
-const controller = require("../controllers/controllers");
+const {controller,user} = require("../controllers/controllers");
 
+// Home route
 router.get("/", (req, res) => {
-    res.send("<h1>todo app chal rha h..<h1>");
+    res.send("<h1>Todo App API</h1>");
 });
 
-router.get("/todos", async (req, res) => {
-    const todos = await todo_.find();
-    res.send(todos);
-});
+// User routes
+router.post('/create/User', user.createUser);
 
-router.get("/create", async (req, res) => {
-    const todo = await todo_.create({
-        title: "todo list",
-        description: "task description..",
-    });
-    res.redirect("/todos");
-    console.log("created successfully");
-});
-
-router.get('/completed/:id', async (req,res) => {
-    const todo = await todo_.findByIdAndUpdate(req.params.id,{completed: true});
-    res.redirect('/todos');
-})
-
-router.get('/uncompleted/:id', async (req,res) => {
-    const todo = await todo_.findByIdAndUpdate(req.params.id,{completed: false});
-    res.redirect('/todos');
-})
-
-router.get('/delete/:id', async (req,res) => {
-    const todo = await todo_.findByIdAndDelete(req.params.id);
-    res.redirect('/todos');
-})
-
-router.get('/todo/:id', async (req,res) => {
-    const todo = await todo_.findById(req.params.id);
-    res.send(todo);
-})
-
-router.get('/todo_date/:id', async (req,res) => {
-    controller.getToDoByDate(req,res);
-})
+// Todo routes
+router.get("/todos", controller.getAllTodos);
+router.post("/createTodo", controller.createTodo);
+router.put('/todos/:id/toggle', controller.toggleTodoStatus);
+router.delete('/todos/:id', controller.deleteTodo);
+router.get('/todos/:id', controller.getTodoById);
+router.get('/todo_date/:id', controller.getToDoByDate);
 
 module.exports = router;
