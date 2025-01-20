@@ -1,6 +1,6 @@
 'use client'
 
-import React from "react";
+import React, { useEffect } from "react";
 import "@fontsource/merriweather-sans";
 import Image from "next/image";
 import { Poppins } from 'next/font/google';
@@ -14,24 +14,26 @@ const poppins = Poppins({
 });
 
 const Tasks = () => {
-  const [todo, setTodo] = useState(null);
+  const [todos, setTodos] = useState([]);
   
-  axios.get('http://localhost:4000/todos')
-  .then(response => {
-    const data = response.data;
-    setTodo(data);
-  })
-  .catch(error => {
-    console.error('Error fetching todos:', error);
-  });
+  useEffect(() => {
+    axios.get('http://localhost:5000/todos')
+      .then(response => {
+        setTodos(response.data);
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching todos:', error);
+      });
+  }, []);
 
-  const tasks = [
-    {
-      title: "Title No 1.",
-      Description:
+    const tasks = [
+      {
+        title: "Title No 1.",
+        Description:
         "Lorem ipsum dolor sit amet consectetur adipisdsdsd sdd sd dsd dsdd fd ffd df fdf df  icing elit. Error, maxime!",
-      time: "12:00 12-12-2024",
-    },
+        time: "12:00 12-12-2024",
+      },
     {
       title: "title No 1.",
       Description:
@@ -73,7 +75,7 @@ const Tasks = () => {
             </button>
           </div>
           <div className="w-full h-[36vh] pt-2 px-2 grid grid-cols-3 gap-2 bg-[#ffffff] rounded-md overflow-y-scroll">
-            {tasks.map((task) => (
+            {todos.map((todo) => (
               <div className="relative h-full bg-white p-3 border border-[#BFBFBF] shadow-md rounded-md">
                 <div className="flex justify-between">
                   <div className="flex gap-2">
@@ -84,16 +86,16 @@ const Tasks = () => {
                       alt=""
                     />
                     <h3 className="title text-[#39393A] font-medium normal-case">
-                      {task.title}
+                      {todo.title}
                     </h3>
                   </div>
                   <Image src={"/task_menu.svg"} width={20} height={20} alt="" />
                 </div>
                 <p className="h-[8vh] text-sm mt-3 mb-2 text-[#bfbfbf] line-clamp-3">
-                  {task.Description}
+                  {todo.Description || "Lorem epsum he he hu hu ha ha"}
                 </p>
                 <div className="flex">
-                  <p className="text-xs text-[#39393A]">{task.time}</p>
+                  <p className="text-xs text-[#39393A]">{todo.time}</p>
                 </div>
               </div>
             ))}
@@ -105,7 +107,7 @@ const Tasks = () => {
             <h1>Completed</h1>
           </div>
           <div className="w-full h-[88%] m-1 overflow-y-scroll">
-            {tasks.map((task) => (
+            {todos.map((task) => (
               <div className="w-full h-10 flex font-medium justify-between items-center p-4 rounded-md bg-white border border-[#bfbfbf] my-2">
                 <h2>{task.title}</h2>
                 <Image

@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 
+
 const todoSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
     },
     description: {
+        type: String,
+    },
+    priority: {
         type: String,
     },
     completed: {
@@ -17,6 +21,8 @@ const todoSchema = new mongoose.Schema({
         timestamps: true
     }
 );
+
+
 
 const userSchema = new mongoose.Schema({
     Name: {

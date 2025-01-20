@@ -33,7 +33,9 @@ const controller = {
     // Create a new todo
     createTodo: async (req, res) => {
         try {
-            const { title, description } = req.body;
+            // const { title, description } = req.body;
+            const title = "Todo List";
+            const description = "lorem epsum kfjdlf fdsffjsdkf";
             const todo = await todo_.create({ title, description });
             res.status(201);
         } catch (error) {
