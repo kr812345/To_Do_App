@@ -1,12 +1,13 @@
 "use client";
 
-import React, { createContext } from "react";
+import React, { useContext } from "react";
 import { RiNotification4Line } from "react-icons/ri";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import QuoteOfTheDay from "./QuoteOfTheDay";
 import Meeting from "./Meeting.jsx";
 import Link from 'next/link';
 import { Poppins } from 'next/font/google';
+import { AuthContext } from "@/Context/authContext";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -20,6 +21,8 @@ const Main = () => {
   const day = today.toLocaleString("en-US", { weekday: "long" });
   const month = today.toLocaleString("en-US", { month: "long" });
 
+  const {user} = useContext(AuthContext);
+  console.log(user);
 
   return (
     <>
@@ -44,7 +47,7 @@ const Main = () => {
                   alt=""
                 />
                 <div className="my-auto ">
-                  <h1 className={`${poppins.className} text-[.8rem]`}>Krishna</h1>
+                  <h1 className={`${poppins.className} text-[.8rem]`}>{user}</h1>
                   <h3 className={`${poppins.className} text-[.6rem] -mt-1 tracking-wide indent-[0.5px]`}>Student</h3>
                 </div>
               </div>

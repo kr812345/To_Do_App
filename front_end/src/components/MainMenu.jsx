@@ -35,7 +35,7 @@ const MainMenu = () => {
                 width={20}
                 height={20}
                 alt="#" />
-                <h1><strong>TASKs</strong></h1>
+                <h1><strong> TASKs </strong></h1>
                 </div> 
                 <LuPanelLeft />
             </div>

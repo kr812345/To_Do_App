@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import { AuthContextProvider } from "@/Context/authContext";
 import { Merriweather_Sans, Poppins } from 'next/font/google';
 
 const merriweather = Merriweather_Sans({
@@ -13,8 +14,6 @@ const poppins = Poppins({
     display: 'swap',
   });
 
-
-
 export const metadata = {
   title: "To_Do App",
   description: "Created by me @kr812345",
@@ -23,9 +22,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${merriweather.className} ${poppins.className}`}>
-        {children}
-      </body>
+      <AuthContextProvider>
+        <body className={`${merriweather.className} ${poppins.className}`}>
+          {children}
+        </body>
+      </AuthContextProvider>
     </html>
   );
 }

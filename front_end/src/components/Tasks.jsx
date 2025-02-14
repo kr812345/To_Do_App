@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Poppins } from 'next/font/google';
 import { useState } from "react";
 import axios from 'axios';
+import CreateTask from "./Create_task";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -15,15 +16,16 @@ const poppins = Poppins({
 
 const Tasks = () => {
   const [todos, setTodos] = useState([]);
-  
+  const [isOpened, setisOpened] = useState(false);
+
   useEffect(() => {
-    axios.get('http://localhost:5000/todos')
+    axios.get('/todos')
       .then(response => {
         setTodos(response.data);
         console.log(response.data);
       })
       .catch(error => {
-        console.error('Error fetching todos:', error);
+        alert(`${error}\n\nTasks not loading..`);
       });
   }, []);
 
@@ -54,19 +56,24 @@ const Tasks = () => {
     },
   ];
 
+  const handleClick = () => {
+    setisOpened(!isOpened);
+  }
+
   return (
     <>
       <div className={`${poppins.className} h-[calc(50%-16px)] flex gap-2 p-2 bg-white border border-[#BFBFBF] mt-4 rounded-md`}>
+        {isOpened ? <CreateTask setisOpened={setisOpened} /> : null}
         <div className="h-[100%] w-[66%] rounded-md">
           <div className="w-full h-10 mb-2 px-4 flex justify-between items-center bg-[#E6E6FA] rounded-md">
             <h1 className="font-semibold">To-Do</h1>
             <button
               className="flex items-center text-white bg-[#6A4C9C] hover:bg-[#9570d2] rounded-md px-2 py-1 gap-2"
               type="button"
+              onClick={handleClick}
             >
               Create Task
               <Image
-                className=""
                 src={"/plus.svg"}
                 width={16}
                 height={16}
@@ -75,8 +82,8 @@ const Tasks = () => {
             </button>
           </div>
           <div className="w-full h-[36vh] pt-2 px-2 grid grid-cols-3 gap-2 bg-[#ffffff] rounded-md overflow-y-scroll">
-            {todos.map((todo) => (
-              <div className="relative h-full bg-white p-3 border border-[#BFBFBF] shadow-md rounded-md">
+            {(todos.map((todo,i) => (
+              <div key={i} className="relative h-full bg-white p-3 border border-[#BFBFBF] shadow-md rounded-md">
                 <div className="flex justify-between">
                   <div className="flex gap-2">
                     <Image
@@ -98,7 +105,7 @@ const Tasks = () => {
                   <p className="text-xs text-[#39393A]">{todo.time}</p>
                 </div>
               </div>
-            ))}
+            ))) || (<p>No Tasks created yet.</p>)}
           </div>
         </div>
         <hr className="border h-[90%] my-auto border-white" />
@@ -107,8 +114,8 @@ const Tasks = () => {
             <h1>Completed</h1>
           </div>
           <div className="w-full h-[88%] m-1 overflow-y-scroll">
-            {todos.map((task) => (
-              <div className="w-full h-10 flex font-medium justify-between items-center p-4 rounded-md bg-white border border-[#bfbfbf] my-2">
+            {todos.map((task,i) => (
+              <div key={i} className="w-full h-10 flex font-medium justify-between items-center p-4 rounded-md bg-white border border-[#bfbfbf] my-2">
                 <h2>{task.title}</h2>
                 <Image
                   src={"/marked.svg"}
