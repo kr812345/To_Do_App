@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
+import axios from 'axios';
 
 const CreateTask = ({isOpened,setisOpened}) => {
     const [selectedOption, setselectedOption] = useState(null);
@@ -10,8 +11,13 @@ const CreateTask = ({isOpened,setisOpened}) => {
         setisOpened(prev => !prev);
     };
 
-    const handleSubmit = () => {
-        axios.post('https:localhost:5000/api/create/todo',{title,description});
+    const handleSubmit = async () => {
+        try{
+            await axios.post('https:localhost:5000/api/create/todo',{title,description});
+        } catch (error) {
+            console.log(error);
+        }
+        
     }
 
     const options = [
@@ -32,8 +38,8 @@ const CreateTask = ({isOpened,setisOpened}) => {
         <>
         <div className='h-screen w-screen absolute top-0 left-0 bg-[#c5c5c5c0] z-10 backdrop-blur-sm flex items-center justify-center' id='cancel_btn'>
             <div className='h-fit w-[500px] bg-slate-100 rounded-lg p-4 flex flex-col gap-4 border border-slate-700/50'>
-                <input className='w-full h-8 p-2 bg-white border border-gray-500 rounded-md text-lg' type="text" name="Title" id="Title" onChange={(e)=>{setTitle(e.target.value)}} placeholder='Title'/>
-                <textarea className='w-full h-28 p-2 bg-white border border-gray-500 rounded-md flex justify-start text-start' type="text" name="Description" onChange={(e)=>{setDescription(e.target.value)}} id="Description" placeholder='description'/>
+                <input required className='w-full h-8 p-2 bg-white border border-gray-500 rounded-md text-lg' type="text" name="Title" id="Title" onChange={(e)=>{setTitle(e.target.value)}} placeholder='Title'/>
+                <textarea required className='w-full h-28 p-2 bg-white border border-gray-500 rounded-md flex justify-start text-start' type="text" name="Description" onChange={(e)=>{setDescription(e.target.value)}} id="Description" placeholder='description'/>
                 <div className='flex justify-between'>
                 <div className='flex gap-1'>
                 <input className='w-32 h-9 rounded-md bg-green-500 hover:bg-green-400' type="submit" onClick={handleSubmit} name="submit" id="Create_btn" value="Create" />

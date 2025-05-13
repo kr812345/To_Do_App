@@ -15,8 +15,9 @@ const controller = {
     createTodo: async (req, res) => {
         try {
             const { title, description } = req.body;
+            console.log(res.body);
             const todo = await todo_.create({ title, description });
-            res.status(201);
+            res.status(201).json({title:title});
         } catch (error) {
             res.status(400).json({ message: error.message });
         }

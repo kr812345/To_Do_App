@@ -1,6 +1,6 @@
 "use client"
 
-import React, { use, useState } from 'react';
+import React, { use, useState, useEffect } from 'react';
 import { LuPanelLeft } from "react-icons/lu";
 import { RiHomeLine } from "react-icons/ri";
 import { CiCalendar } from "react-icons/ci";
@@ -15,18 +15,27 @@ const poppins = Poppins({
     display: 'swap',
   });
 
-const MainMenu = () => {
+const MainMenu = ({dataFromMainMenu}) => {
     const [Activate, setActivate] = useState("Dashboard");
     
     const menuItems = [
-        {name:"Dashboard", icon:<RiHomeLine/>}, 
+        {name:"Dashboard", icon:<RiHomeLine/>},
         {name:"Calender", icon:<CiCalendar/>},
         {name:"Meeting", icon:<IoVideocamOutline/>},
         {name:"Setting", icon:<IoSettingsOutline/>}];
 
+    useEffect(() => {
+        dataFromMainMenu(Activate);
+    }, [Activate, dataFromMainMenu]);
+
+    const handleClick = () => {
+        const element = document.getElementById('menuBtn');
+        element.setAttribute = 'hidden';
+    }
+
     return (
         <>
-        <div className={`${poppins.className} h-full w-[15vw] p-4 bg-white border border-[#bfbfbf] rounded-md`}>
+        <div id='menuBtn' className={`${poppins.className} h-full w-[15vw] p-4 bg-white border border-[#bfbfbf] rounded-md`}>
             <div className='logo flex gap-4 items-center justify-between'>
                 <div className='flex gap-2 text-xl'>
                 <Image 
@@ -37,7 +46,7 @@ const MainMenu = () => {
                 alt="#" />
                 <h1><strong> TASKs </strong></h1>
                 </div> 
-                <LuPanelLeft />
+                <LuPanelLeft  onClick={handleClick}/>
             </div>
 
             <div className='w-[100%] min-h-[content-fit] mt-6 rounded-md'>

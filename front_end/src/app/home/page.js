@@ -4,7 +4,7 @@ import MainMenu from "@/components/MainMenu";
 import Tasks from "@/components/Tasks";
 
 
-const Index = () => {
+const Home = () => {
     return (
         <>
         <div className="w-full h-screen flex bg-gray-100 p-4" >
@@ -18,4 +18,4 @@ const Index = () => {
     );
 }
 
-export default Index;
+export default Home;

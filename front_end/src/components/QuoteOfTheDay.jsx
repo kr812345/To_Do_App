@@ -19,27 +19,43 @@ const QuoteOfTheDay = () => {
   useEffect(() => {
     const fetchQuote = async () => {
       try {
-        const response = await fetch(
-          "https://www.stands4.com/services/v2/quotes.php?uid=13011&tokenid=6pwyoQ4HZQevLI4z&searchtype=RANDOM&format=json",
-          {
-            method: "GET",
+        try {
+          const response = await fetch(
+            "https://www.stands4.com/services/v2/quotes.php?uid=13011&tokenid=6pwyoQ4HZQevLI4z&searchtype=RANDOM&format=json",
+            {
+              method: "GET",
+              timeout: 5000 // 5 second timeout
+            }
+          );
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! status ${response.status}`);
           }
-        );
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status ${response.status}`);
+          
+          const data = await response.json();
+          if (!data || !data.result || !data.result.quote) {
+            throw new Error('Invalid response data');
+          }
+
+          localStorage.setItem("quoteData", data.result);
+          setQuote(localStorage.getItem("quoteData"));
+          
+        } catch (error) {
+          console.error('Error in fetch operation:', error);
+          throw error; // Re-throw to be caught by outer try-catch
         }
-        
-        const data = await response.json();
-        setQuote(data.result);
       } catch (error) {
         console.error('Error fetching quote:', error);
         setQuote({quote: "Failed to load quote", author: "System"});
       }
     };
 
-    fetchQuote();
-    console.log(date);
+    const quoteData = localStorage.getItem('quoteData');
+
+    if (!quoteData) {
+      fetchQuote();
+    }
+
   }, [date]);
 
   return (

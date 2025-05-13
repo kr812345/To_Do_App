@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fontsource/merriweather-sans": "^5.2.5",
     "axios": "^1.7.9",
     "moment": "^2.30.1",
     "next": "15.0.4",

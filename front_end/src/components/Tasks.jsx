@@ -19,14 +19,16 @@ const Tasks = () => {
   const [isOpened, setisOpened] = useState(false);
 
   useEffect(() => {
-    axios.get('/todos')
-      .then(response => {
-        setTodos(response.data);
-        console.log(response.data);
-      })
-      .catch(error => {
-        alert(`${error}\n\nTasks not loading..`);
-      });
+    const fetchTodos = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/todos');
+        setTodos(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchTodos();
   }, []);
 
     const tasks = [
