@@ -13,7 +13,11 @@ const CreateTask = ({isOpened,setisOpened}) => {
 
     const handleSubmit = async () => {
         try{
-            await axios.post('https:localhost:5000/api/create/todo',{title,description});
+            console.log({title,description})
+            const res = await axios.post('/api/create/todo',{ title, description});
+            console.log(res);
+            handleClick()
+            console.log({title,description})
         } catch (error) {
             console.log(error);
         }

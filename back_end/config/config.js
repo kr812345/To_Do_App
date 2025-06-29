@@ -5,7 +5,6 @@ const URI = process.env.MongodbURI;
 
 const db_connect = () =>{
     try {
-        
         mongoose
             .connect(URI)
             .then(() => console.log("Connected to MongoDB"))

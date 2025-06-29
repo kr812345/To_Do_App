@@ -6,6 +6,7 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import Register from '@/components/Register';
 import Main from '@/components/Main';
 import MainMenu from '@/components/MainMenu';
+import ChatBot from '@/components/ChatBot';
 import Tasks from '@/components/Tasks';
 import Setting from '@/components/Setting';
 
@@ -37,7 +38,7 @@ const home = () => {
                     
                         { active === 'Dashboard' && <> <Main /> <Tasks /> </>}
 
-                        { active === 'Calendar' && <Calendar/> }
+                        { active === 'ChatBot' && <ChatBot/> }
                         
                         { active === 'Setting' && <Setting/> }
                     

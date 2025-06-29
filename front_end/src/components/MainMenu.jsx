@@ -3,7 +3,7 @@
 import React, { use, useState, useEffect } from 'react';
 import { LuPanelLeft } from "react-icons/lu";
 import { RiHomeLine } from "react-icons/ri";
-import { CiCalendar } from "react-icons/ci";
+import { TbMessageChatbot } from "react-icons/tb";
 import { IoVideocamOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import Image from "next/image";
@@ -20,7 +20,7 @@ const MainMenu = ({dataFromMainMenu}) => {
     
     const menuItems = [
         {name:"Dashboard", icon:<RiHomeLine/>},
-        {name:"Calender", icon:<CiCalendar/>},
+        {name:"ChatBot", icon:<TbMessageChatbot />},
         {name:"Meeting", icon:<IoVideocamOutline/>},
         {name:"Setting", icon:<IoSettingsOutline/>}];
 

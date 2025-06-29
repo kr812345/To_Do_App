@@ -10,18 +10,16 @@ const todoSchema = new mongoose.Schema({
     },
     priority: {
         type: String,
+        enum: ['high','medium','low']
     },
     completed: {
         type: Boolean,
-        default: false,
+        default: false
     }
 },
     {
         timestamps: true
     }
 );
-
-
-
 
 module.exports = mongoose.model("Todo",todoSchema);
